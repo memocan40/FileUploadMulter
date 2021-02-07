@@ -1,17 +1,20 @@
-const express=require('express');
-const app=express();
-const port=3000;
-
+// Dotenv config
 
 const dotenv = require("dotenv");
-//
 dotenv.config();
+const { PORT } = process.env;
 
+// Express config
 
-const router=require('./routes/routes')
+const express = require("express");
+const app = express();
 
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/",(req,res)=>res.send("test"));
-app.use("/data",router);
+const routes = require("./routes");
+app.use("/", routes);
 
-app.listen(port,()=>{console.log("server running")});
+//Start server
+
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
